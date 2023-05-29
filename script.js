@@ -93,7 +93,7 @@ var defaultId = 0;
 
 class Task {
     constructor(description) {
-        this.id = ++defaultId;
+        this.id = `task-${++defaultId}`;
         this.description = description;
         this.isDone = false;
     }
@@ -124,13 +124,13 @@ function renderTasks() {
         const listItem = document.createElement('div');
         const taskElement = `
        <div>
-       <input type="checkbox" ${task.isDone ? 'checked' : ''} onchange="toggleTaskStatus(${task.id})"/>
+       <input type="checkbox" ${task.isDone ? 'checked' : ''} onchange="toggleTaskStatus('${task.id}')"/>
        <span>Task ${task.id}:</span>
        <span>${task.description}</span>
        </div>
        <div>
-       <button class="edit-btn" onclick="editTask(${task.id})">Edit</button>
-       <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+       <button class="edit-btn" onclick="editTask('${task.id}')">Edit</button>
+       <button class="delete-btn" onclick="deleteTask('${task.id}')">Delete</button>
        </div>
        `;
 
@@ -162,7 +162,7 @@ function toggleTaskStatus(id) {
         renderTasks();
     }
     console.log(task);
-    // renderTasks();
+    renderTasks();
 }
 
 function editTask(id) {
