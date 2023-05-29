@@ -1,0 +1,23 @@
+.task {
+  display: flex;
+  padding: 10px;
+  border: 1px solid #000;
+  margin: 5px 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 5px 10px;
+  border: 0px;
+  color: #fff;
+}
+
+.edit-btn {
+  background-color: #000;
+}
+
+.delete-btn {
+  background-color: #ff5555;
+}
