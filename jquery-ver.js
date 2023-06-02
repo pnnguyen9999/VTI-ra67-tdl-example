@@ -1,20 +1,4 @@
-
-// var defaultId = 0;
-
-// class Task {
-//     constructor(description) {
-//         this.id = `task-${++defaultId}`;
-//         this.description = description;
-//         this.isDone = false;
-//     }
-// }
-
-// let tasks = [
-//     new Task('Giặt áo quần'),
-//     new Task('Đi siêu thị'),
-//     new Task('Trả tiền điện'),
-//     new Task('Đi chợ'),
-// ];
+let taskData = [];
 
 $(document).ready(function () {
     renderTasks();
@@ -26,13 +10,13 @@ const addTaskBtn = $("#addTaskBtn");
 const taskInput = $("#taskInput");
 
 function renderTasks() {
-    taskList.empty();
-    doneTaskList.empty();
-
     $.ajax({
         type: "GET",
         url: "https://6479ea22a455e257fa640d61.mockapi.io/todo",
         success: function (response) {
+            taskList.empty();
+            doneTaskList.empty();
+            taskData = response;
             response.forEach(function (task) {
                 const listItem = document.createElement('div');
 
@@ -58,42 +42,71 @@ function renderTasks() {
                     taskList.append(listItem);
                 }
             });
+            $("#loading").hide();
         }
     });
 
 }
 
 function addTask() {
-    const description = taskInput.val();
+    $("#loading").show();
 
-    if (description !== '') {
-        const task = new Task(description);
-        tasks.push(task);
-        renderTasks();
-    }
-}
-
-function toggleTaskStatus(id) {
-    const task = tasks.find(task => task.id === id);
-    if (task) {
-        task.isDone = !task.isDone;
-        renderTasks();
-    }
-    console.log(task);
-    renderTasks();
-}
-
-function editTask(id) {
-    const newDescription = prompt('Nhập nội dung task mong muốn:');
+    const newDescription = taskInput.val();
 
     const objUpdate = {
         description: newDescription,
         isDone: false,
     };
     $.ajax({
+        type: "POST",
+        url: `https://6479ea22a455e257fa640d61.mockapi.io/todo`,
+        data: JSON.stringify(objUpdate),
+        contentType: "application/json",
+        success: function (response) {
+            renderTasks();
+            taskInput.val("");
+        }
+    });
+}
+
+function toggleTaskStatus(id) {
+    $("#loading").show();
+
+    const currentTask = taskData.find((obj) => obj.id === id);
+    const objUpdate = {
+        ...currentTask,
+        isDone: !currentTask.isDone,
+    };
+    $.ajax({
         type: "PUT",
         url: `https://6479ea22a455e257fa640d61.mockapi.io/todo/${id}`,
-        data: objUpdate,
+        data: JSON.stringify(objUpdate),
+        contentType: "application/json",
+        success: function (response) {
+            renderTasks();
+        }
+    });
+}
+
+function editTask(id) {
+    $("#loading").show();
+
+    const currentTask = taskData.find((obj) => obj.id === id);
+    const newDescription = prompt('Nhập nội dung task mong muốn:', currentTask.description);
+
+    if (newDescription === null) {
+        $("#loading").hide();
+        return;
+    }
+    const objUpdate = {
+        ...currentTask,
+        description: newDescription,
+    };
+    $.ajax({
+        type: "PUT",
+        url: `https://6479ea22a455e257fa640d61.mockapi.io/todo/${id}`,
+        data: JSON.stringify(objUpdate),
+        contentType: "application/json",
         success: function (response) {
             renderTasks();
         }
@@ -101,6 +114,8 @@ function editTask(id) {
 }
 
 function deleteTask(id) {
+    $("#loading").show();
+
     $.ajax({
         type: "DELETE",
         url: `https://6479ea22a455e257fa640d61.mockapi.io/todo/${id}`,

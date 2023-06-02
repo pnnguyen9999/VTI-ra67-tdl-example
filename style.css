@@ -6,7 +6,9 @@
   justify-content: space-between;
   align-items: center;
 }
-
+body {
+  margin: 0;
+}
 .edit-btn,
 .delete-btn {
   padding: 5px 10px;
@@ -24,4 +26,16 @@
 
 .done {
   background-color: #22cd50;
+}
+
+#loading {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

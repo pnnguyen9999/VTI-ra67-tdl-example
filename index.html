@@ -9,20 +9,18 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>To do list</h1>
-    <div>
-      <input
-        maxlength="10"
-        type="text"
-        id="taskInput"
-        placeholder="Nhập nội dung task"
-      />
-      <button id="addTaskBtn">Thêm task</button>
-      <div id="taskList"></div>
-    </div>
-    <h1>Done list</h1>
-    <div>
-      <div id="doneTaskList"></div>
+    <div id="loading">cập nhật dữ liệu...</div>
+    <div style="padding: 10px">
+      <h1>To do list</h1>
+      <div>
+        <input type="text" id="taskInput" placeholder="Nhập nội dung task" />
+        <button id="addTaskBtn">Thêm task</button>
+        <div id="taskList"></div>
+      </div>
+      <h1>Done list</h1>
+      <div>
+        <div id="doneTaskList"></div>
+      </div>
     </div>
     <script src="jquery-ver.js"></script>
     <!-- <script src="script.js"></script> -->
