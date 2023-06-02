@@ -5,12 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>To do list</h1>
     <div>
-      <input type="text" id="taskInput" placeholder="Nhập nội dung task" />
+      <input
+        maxlength="10"
+        type="text"
+        id="taskInput"
+        placeholder="Nhập nội dung task"
+      />
       <button id="addTaskBtn">Thêm task</button>
       <div id="taskList"></div>
     </div>
@@ -18,6 +24,7 @@
     <div>
       <div id="doneTaskList"></div>
     </div>
-    <script src="script.js"></script>
+    <script src="jquery-ver.js"></script>
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>

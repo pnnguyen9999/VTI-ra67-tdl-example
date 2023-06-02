@@ -108,8 +108,8 @@ let tasks = [
 
 console.log(tasks);
 
-
 const taskList = document.getElementById('taskList');
+
 const doneTaskList = document.getElementById('doneTaskList');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskInput = document.getElementById('taskInput');
@@ -122,6 +122,7 @@ function renderTasks() {
 
     tasks.forEach(function (task) {
         const listItem = document.createElement('div');
+
         const taskElement = `
        <div>
        <input type="checkbox" ${task.isDone ? 'checked' : ''} onchange="toggleTaskStatus('${task.id}')"/>
@@ -138,9 +139,10 @@ function renderTasks() {
         listItem.classList.add('task');
 
         if (task.isDone) {
+            listItem.classList.add('done');
             doneTaskList.appendChild(listItem);
         } else {
-            taskList.appendChild(listItem);
+            taskList.prepend(listItem);
         }
     });
 }
